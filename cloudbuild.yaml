@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - my_try_func
+  - --entry-point=my_func_http
+  - --source=.
+  - --trigger-http
+  - --runtime=python39
+  - --allow-unauthenticated
+  - --memory=1024MB
+  - --region=europe-west1
