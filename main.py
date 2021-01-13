@@ -58,7 +58,7 @@ def main_http(request):
     subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=r'new-app').wait()
     subprocess.Popen(['git', 'add', '.'], cwd=r'new-app').wait()
     subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=r'new-app').wait()
-    subprocess.Popen(['git','push','-u','origin','master'], cwd=r'new-app').wait()
+    subprocess.Popen(['git','push','-u','origin','master', '--force'], cwd=r'new-app').wait()
     # ------------------------------------------------
 
     # Start the build with codemagic
