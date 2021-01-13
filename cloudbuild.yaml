@@ -3,8 +3,8 @@ steps:
   args:
   - functions
   - deploy
-  - my_try_func
-  - --entry-point=my_func_http
+  - apps_builder_function
+  - --entry-point=main_http
   - --source=.
   - --trigger-http
   - --runtime=python39
