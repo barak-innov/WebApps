@@ -1,6 +1,7 @@
 from utils import *
 import re
 import sys
+import os
 
 HOME_URL='https://barak8807.editorx.io12/mysite-8'
 #HOME_URL='https://fid.dev3'
@@ -19,6 +20,9 @@ if sys.platform.startswith('win32'):
     NEW_APP_PATH='new-app'    
 else:#sys.platform.startswith('linux'):
     NEW_APP_PATH=r'/tmp/new-app'
+    os.system('export GOOGLE_APPLICATION_CREDENTIALS=\"WebApps-8cc1b58e690f.json\"')
+
+
 
 
 print('CONFIGURATION:')

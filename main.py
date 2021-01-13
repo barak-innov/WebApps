@@ -3,8 +3,8 @@ from config import *
 from time import sleep
 import subprocess
 from login_config import *
-import google.cloud.logging
-import logging
+from google.cloud import logging
+
 
 """
 def my_func_http(request):
@@ -21,28 +21,34 @@ def my_func_http(request):
 """
 
 
+
+
 def main_http(request):
 
     # Instantiates a client
-    client = google.cloud.logging.Client()
+    logging_client = logging.Client()
 
-    # Retrieves a Cloud Logging handler based on the environment
-    # you're running in and integrates the handler with the
-    # Python logging module. By default this captures all logs
-    # at INFO level and higher
-    client.get_default_handler()
-    client.setup_logging()
-    mylogger = client.logger('mylogger')
-    mylogger.log_text('gfsafsafsa')
+    # The name of the log to write to
+    log_name = "my-log"
+    # Selects the log to write to
+    logger = logging_client.logger(log_name)
+
+    # The data to log
+    text = "Hello, world!"
+
+    # Writes the log entry
+    logger.log_text(text)
+
+    print("Loggssssssssssssssssssssssssssssssed: {}".format(text))
 
 
 
     request_args = request.args
-    logging.info("1-----------------------------------")
-    logging.info(str(request))
-    logging.info("2-----------------------------------")
-    logging.info(str(request_args))
-    logging.info("3-----------------------------------")
+    print("1-----------------------------------")
+    print(str(request))
+    print("2-----------------------------------")
+    print(str(request_args))
+    print("3-----------------------------------")
 
 
     done_msg='App Runs Successfuly'
@@ -53,7 +59,7 @@ def main_http(request):
         # request_json = request.get_json(silent=True)
         # request_args = request.args
         # clean old runs history
-        logging.info('clean old runs history')
+        print('clean old runs history')
         shutil.rmtree(NEW_APP_PATH, ignore_errors=True)
 
         # ------------------------------------------------
@@ -67,19 +73,19 @@ def main_http(request):
 
         # Add the project to repository
         ## create all files of new app
-        logging.info('creating new app...')
+        print('creating new app...')
         copytree('template-app', NEW_APP_PATH)
-        logging.info('creating new app...DONE!')
+        print('creating new app...DONE!')
 
         ## apply the pach on the files in the new-app. the pathc allow to replace strings in the app
-        logging.info('appling patch on files...')
+        print('appling patch on files...')
         forceCopyFile('app_patch_templates/constants.dart.template', NEW_APP_PATH + '/lib/constants.dart')
-        logging.info('appling patch on files...DONE!')
+        print('appling patch on files...DONE!')
 
         ## apply new app configuration(like the domain) on the new-app project
-        logging.info('replace strings in pached files...')
+        print('replace strings in pached files...')
         inplace_change(NEW_APP_PATH + '/lib/constants.dart', TEMPLATE_DICT['home_sites_url'], HOME_URL)
-        logging.info('replace strings in pached files...DONE!')
+        print('replace strings in pached files...DONE!')
 
         # ------------------------------------------------
 
@@ -97,7 +103,7 @@ def main_http(request):
         # Start the build with codemagic
 
         
-        logging.info(done_msg)
+        print(done_msg)
         return (done_msg, 403, headers)
     except Exception as err:
         return (faile_msg + ', due to: ' + str(err), 404, headers)
