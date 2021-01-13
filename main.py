@@ -50,15 +50,15 @@ def main_http(request):
     # ------------------------------------------------
 
     # Upload project to the new git repository
-    subprocess.Popen(['ls']).wait()
-    subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=r'new-app').wait()
-    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=r'new-app').wait()
-    subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=r'new-app').wait()
-    subprocess.Popen(['git','init'], cwd=r'new-app').wait()
-    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=r'new-app').wait()
-    subprocess.Popen(['git', 'add', '.'], cwd=r'new-app').wait()
-    subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=r'new-app').wait()
-    subprocess.Popen(['git','push','-u','origin','master', '--force'], cwd=r'new-app').wait()
+    new_app_dir = r'\./new-app'
+    subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=new_app_dir).wait()
+    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=rnew_app_dir).wait()
+    subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=new_app_dir).wait()
+    subprocess.Popen(['git','init'], cwd=new_app_dir).wait()
+    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=new_app_dir).wait()
+    subprocess.Popen(['git', 'add', '.'], cwd=new_app_dir).wait()
+    subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=new_app_dir).wait()
+    subprocess.Popen(['git','push','-u','origin','master', '--force'], cwd=new_app_dir).wait()
     # ------------------------------------------------
 
     # Start the build with codemagic
