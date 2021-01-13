@@ -33,10 +33,10 @@ def main_http(request):
     # Selects the log to write to
     logger = logging_client.logger(log_name)
 
-    # # The data to log
-    # text = "Hello, world!"
-    # # Writes the log entry
-    # logger.log_text(text)
+    # The data to log
+    text = "Hello, world!"
+    # Writes the log entry
+    logger.log_text(text)
 
 
 
