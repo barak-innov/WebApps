@@ -2,6 +2,7 @@ import requests
 from config import *
 from time import sleep
 import subprocess
+from login_config import *
 """
 def my_func_http(request):
     request_json = request.get_json(silent=True)
@@ -15,6 +16,9 @@ def my_func_http(request):
         name = 'World'
     return 'Hello f!'
 """
+
+
+
 
 
 def main_http(request):
@@ -46,6 +50,10 @@ def main_http(request):
     # ------------------------------------------------
 
     # Upload project to the new git repository
+        
+    subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=r'new-app').wait()
+    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=r'new-app').wait()
+
     subprocess.Popen(['git','init'], cwd=r'new-app').wait()
     subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=r'new-app').wait()
     subprocess.Popen(['git', 'add', '.'], cwd=r'new-app').wait()
