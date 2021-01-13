@@ -34,6 +34,8 @@ def copytree(src, dst, symlinks=False, ignore=None):
             else:
                 shutil.copy2(s, d)
 
+        print("creating new app in " + d)
+
 
 def inplace_change(filename, old_string, new_string):
     # Safely read the input filename using 'with'

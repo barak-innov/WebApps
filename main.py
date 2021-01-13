@@ -39,20 +39,26 @@ def main_http(request):
 
     # Add the project to repository
     ## create all files of new app
+    print('creating new app...')
     copytree('template-app', 'new-app')
+    print('creating new app...DONE!')
 
     ## apply the pach on the files in the new-app. the pathc allow to replace strings in the app
+    print('appling patch on files...')
     forceCopyFile('app_patch_templates/constants.dart.template', 'new-app/lib/constants.dart')
+    print('appling patch on files...DONE!')
 
     ## apply new app configuration(like the domain) on the new-app project
+    print('replace strings in pached files...')
     inplace_change('new-app/lib/constants.dart', TEMPLATE_DICT['home_sites_url'], HOME_URL)
+    print('replace strings in pached files...DONE!')
 
     # ------------------------------------------------
 
     # Upload project to the new git repository
-    new_app_dir = r'\./new-app'
+    new_app_dir = r'new-app'
     subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=rnew_app_dir).wait()
+    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=new_app_dir).wait()
     subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=new_app_dir).wait()
     subprocess.Popen(['git','init'], cwd=new_app_dir).wait()
     subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=new_app_dir).wait()
