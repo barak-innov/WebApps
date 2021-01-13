@@ -50,7 +50,7 @@ def main_http(request):
     # ------------------------------------------------
 
     # Upload project to the new git repository
-        
+    subprocess.Popen(['ls']).wait()
     subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=r'new-app').wait()
     subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=r'new-app').wait()
     subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=r'new-app').wait()
