@@ -1,2 +1,2 @@
 requests==2.25.1
-google.cloud
+google.cloud==0.34.0
