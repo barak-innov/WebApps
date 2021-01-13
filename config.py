@@ -12,7 +12,7 @@ APP_NAME=m.group(1).replace('.', '-')
 TEMPLATE_DICT={
     'home_sites_url' : '<<<home.site.url>>>',
 }
-
+ 
 
 print('CONFIGURATION:')
 print('HOME_URL : ' + HOME_URL)
