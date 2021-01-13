@@ -8,7 +8,7 @@ HOME_URL='https://barak8807.editorx.io/mysite-7'
 m = re.search('https?://([A-Za-z_0-9.-]+).*', HOME_URL)
 APP_NAME=m.group(1).replace('.', '-')
 #APP_NAME=domain_finder(HOME_URL)
-
+ 
 TEMPLATE_DICT={
     'home_sites_url' : '<<<home.site.url>>>',
 }
