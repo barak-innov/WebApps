@@ -28,16 +28,15 @@ def copytree(src, dst, symlinks=False, ignore=None):
     
     try:
         os.mkdir(dst)
-    except OSError:
-        print ("Creation of the directory %s failed" % path)
+    except OSError as err:
+        print ("Creation of the directory `"+ dst + "` failed, due to:" + str(err))
     else:
-        print ("Successfully created the directory %s " % path)
+        print ("Successfully created the directory `%s` " % dst)
 
     for item in os.listdir(src):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
-        print("creating new app in SRC: " + s)
-        print("creating new app in DST: " + d)
+        
         if 'build' not in s:
             if os.path.isdir(s):
                 shutil.copytree(s, d, symlinks, ignore)
