@@ -25,6 +25,14 @@ def domain_finder(link):
 
 import os, shutil
 def copytree(src, dst, symlinks=False, ignore=None):
+    
+    try:
+        os.mkdir(dst)
+    except OSError:
+        print ("Creation of the directory %s failed" % path)
+    else:
+        print ("Successfully created the directory %s " % path)
+
     for item in os.listdir(src):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
