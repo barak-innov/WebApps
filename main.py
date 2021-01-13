@@ -22,8 +22,8 @@ def my_func_http(request):
 
 
 def main_http(request):
-    request_json = request.get_json(silent=True)
-    request_args = request.args
+    # request_json = request.get_json(silent=True)
+    # request_args = request.args
     # clean old runs history
     print('clean old runs history')
     shutil.rmtree('new-app', ignore_errors=True)
@@ -55,7 +55,7 @@ def main_http(request):
     subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=r'new-app').wait()
 
     subprocess.Popen(['git','init'], cwd=r'new-app').wait()
-    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=r'new-app').wait()
+    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://'+GIT_USERNAME+':'+GIT_PASSWORD+'@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=r'new-app').wait()
     subprocess.Popen(['git', 'add', '.'], cwd=r'new-app').wait()
     subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=r'new-app').wait()
     subprocess.Popen(['git','push','-u','origin','master'], cwd=r'new-app').wait()
@@ -64,3 +64,7 @@ def main_http(request):
     # ------------------------------------------------
 
     # Start the build with codemagic
+
+
+if __name__ == '__main__':
+    main_http({});
