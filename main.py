@@ -22,6 +22,14 @@ def my_func_http(request):
 
 
 def main_http(request):
+    request_args = request.args
+    print("1-----------------------------------")
+    print(str(request))
+    print("2-----------------------------------")
+    print(str(request_args))
+    print("3-----------------------------------")
+
+
     done_msg='App Runs Successfuly'
     faile_msg='App Build&Deploy Failed'
     headers={}
@@ -81,4 +89,4 @@ def main_http(request):
 
 
 if __name__ == '__main__':
-    main_http({});
+    main_http({'args': {'web_url': HOME_URL}});
