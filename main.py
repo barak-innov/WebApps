@@ -3,6 +3,8 @@ from config import *
 from time import sleep
 import subprocess
 from login_config import *
+from google.cloud import logging as cloudlogging
+import logging
 """
 def my_func_http(request):
     request_json = request.get_json(silent=True)
@@ -18,10 +20,19 @@ def my_func_http(request):
 """
 
 
-
-
-
 def main_http(request):
+
+    lg_client = cloudlogging.Client()
+
+    lg_handler = lg_client.get_default_handler()
+    cloud_logger = logging.getLogger("cloudLogger")
+    cloud_logger.setLevel(logging.INFO)
+    cloud_logger.addHandler(lg_handler)
+    cloud_logger.info("test out logger carrying normal news")
+    
+
+
+
     request_args = request.args
     print("1-----------------------------------")
     print(str(request))
