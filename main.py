@@ -32,7 +32,8 @@ def main_http(request):
     # at INFO level and higher
     client.get_default_handler()
     client.setup_logging()
-    
+    mylogger = client.logger('mylogger')
+    mylogger.log_text('gfsafsafsa')
 
 
 
@@ -97,7 +98,7 @@ def main_http(request):
 
         
         logging.info(done_msg)
-        return (done_msg, 200, headers)
+        return (done_msg, 403, headers)
     except Exception as err:
         return (faile_msg + ', due to: ' + str(err), 404, headers)
 
