@@ -33,13 +33,10 @@ def main_http(request):
     # Selects the log to write to
     logger = logging_client.logger(log_name)
 
-    # The data to log
-    text = "Hello, world!"
-
-    # Writes the log entry
-    logger.log_text(text)
-
-    print("Loggssssssssssssssssssssssssssssssed: {}".format(text))
+    # # The data to log
+    # text = "Hello, world!"
+    # # Writes the log entry
+    # logger.log_text(text)
 
 
 
@@ -104,7 +101,7 @@ def main_http(request):
 
         
         print(done_msg)
-        return (done_msg, 403, headers)
+        return (done_msg, 200, headers)
     except Exception as err:
         return (faile_msg + ', due to: ' + str(err), 404, headers)
 
