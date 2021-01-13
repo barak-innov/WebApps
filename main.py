@@ -26,7 +26,7 @@ def main_http(request):
     # request_args = request.args
     # clean old runs history
     print('clean old runs history')
-    shutil.rmtree('new-app', ignore_errors=True)
+    shutil.rmtree(NEW_APP_PATH, ignore_errors=True)
 
     # ------------------------------------------------
 
@@ -40,31 +40,30 @@ def main_http(request):
     # Add the project to repository
     ## create all files of new app
     print('creating new app...')
-    copytree('template-app', '/tmp/new-app')
+    copytree('template-app', NEW_APP_PATH)
     print('creating new app...DONE!')
 
     ## apply the pach on the files in the new-app. the pathc allow to replace strings in the app
     print('appling patch on files...')
-    forceCopyFile('app_patch_templates/constants.dart.template', '/tmp/new-app/lib/constants.dart')
+    forceCopyFile('app_patch_templates/constants.dart.template', NEW_APP_PATH + '/lib/constants.dart')
     print('appling patch on files...DONE!')
 
     ## apply new app configuration(like the domain) on the new-app project
     print('replace strings in pached files...')
-    inplace_change('/tmp/new-app/lib/constants.dart', TEMPLATE_DICT['home_sites_url'], HOME_URL)
+    inplace_change(NEW_APP_PATH + '/lib/constants.dart', TEMPLATE_DICT['home_sites_url'], HOME_URL)
     print('replace strings in pached files...DONE!')
 
     # ------------------------------------------------
 
     # Upload project to the new git repository
-    new_app_dir = r'/tmp/new-app'
-    subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','init'], cwd=new_app_dir).wait()
-    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=new_app_dir).wait()
-    subprocess.Popen(['git', 'add', '.'], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=new_app_dir).wait()
-    subprocess.Popen(['git','push','-u','origin','master', '--force'], cwd=new_app_dir).wait()
+    subprocess.Popen(['git','config','--global','user.name', GIT_USERNAME], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git','config','--global','user.password', GIT_PASSWORD], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git','config','--global','user.email', GIT_EMAIL], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git','init'], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git', 'remote', 'add', 'origin', 'https://' + GIT_TOKEN_NAME + ':' + GIT_TOKEN_VALUE + '@gitlab.com/web-apps-group-auto-updated/' + APP_NAME + '.git'], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git', 'add', '.'], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git','commit','-m','"Initial commit"'], cwd=NEW_APP_PATH).wait()
+    subprocess.Popen(['git','push','-u','origin','master', '--force'], cwd=NEW_APP_PATH).wait()
     # ------------------------------------------------
 
     # Start the build with codemagic

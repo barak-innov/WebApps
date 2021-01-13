@@ -1,6 +1,8 @@
 from utils import *
 import re
-HOME_URL='https://barak8807.editorx.io9/mysite-8'
+import sys
+
+HOME_URL='https://barak8807.editorx.io11/mysite-8'
 #HOME_URL='https://fid.dev3'
 
 
@@ -13,8 +15,14 @@ TEMPLATE_DICT={
     'home_sites_url' : '<<<home.site.url>>>',
 }
  
+if sys.platform.startswith('win32'):
+    NEW_APP_PATH='new-app'    
+else:#sys.platform.startswith('linux'):
+    NEW_APP_PATH=r'/tmp/new-app'
+
 
 print('CONFIGURATION:')
 print('HOME_URL : ' + HOME_URL)
 print('APP_NAME : ' + APP_NAME)
 print('TEMPLATE_DICT : ' + str(TEMPLATE_DICT))
+print('NEW_APP_PATH : ' + str(NEW_APP_PATH))
