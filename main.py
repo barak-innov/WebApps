@@ -48,7 +48,7 @@ def main_http(request):
     print("3-----------------------------------")
 
 
-    done_msg='App Runs Successfuly'
+    done_msg='{"msg":"App Runs Successfuly", "args":"'+str(request_args)+'"}'
     faile_msg='App Build&Deploy Failed'
     headers={}
 
