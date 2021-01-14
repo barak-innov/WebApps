@@ -4,8 +4,8 @@ from time import sleep
 import subprocess
 from login_config import *
 from google.cloud import logging
-
-
+import json
+from types import SimpleNamespace
 """
 def my_func_http(request):
     request_json = request.get_json(silent=True)
@@ -25,18 +25,18 @@ def my_func_http(request):
 
 def main_http(request):
 
-    # Instantiates a client
-    logging_client = logging.Client()
+    # # Instantiates a client
+    # logging_client = logging.Client()
 
-    # The name of the log to write to
-    log_name = "my-log"
-    # Selects the log to write to
-    logger = logging_client.logger(log_name)
+    # # The name of the log to write to
+    # log_name = "my-log"
+    # # Selects the log to write to
+    # logger = logging_client.logger(log_name)
 
-    # The data to log
-    text = "Hello, world!"
-    # Writes the log entry
-    logger.log_text(text)
+    # # The data to log
+    # text = "Hello, world!"
+    # # Writes the log entry
+    # logger.log_text(text)
 
 
 
@@ -107,4 +107,6 @@ def main_http(request):
 
 
 if __name__ == '__main__':
-    main_http({'args': {'web_url': HOME_URL}});
+    request_fake_params = "{\"args\": {\"web_url\": \""+HOME_URL+"\"}}"
+    request_fake_obj = json.loads(request_fake_params, object_hook=lambda d: SimpleNamespace(**d))
+    main_http(request_fake_obj);

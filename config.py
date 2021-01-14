@@ -18,6 +18,7 @@ TEMPLATE_DICT={
  
 if sys.platform.startswith('win32'):
     NEW_APP_PATH='new-app'    
+    os.system('set GOOGLE_APPLICATION_CREDENTIALS=\"WebApps-8cc1b58e690f.json\"')
 else:#sys.platform.startswith('linux'):
     NEW_APP_PATH=r'/tmp/new-app'
     os.system('export GOOGLE_APPLICATION_CREDENTIALS=\"WebApps-8cc1b58e690f.json\"')
