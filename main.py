@@ -101,7 +101,7 @@ def main_http(request):
 
         
         print(done_msg)
-        return (done_msg, 200, headers)
+        return (done_msg, 403, headers)
     except Exception as err:
         return (faile_msg + ', due to: ' + str(err), 404, headers)
 
