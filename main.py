@@ -24,35 +24,64 @@ def my_func_http(request):
 
 
 def main_http(request):
-
-    # # Instantiates a client
-    # logging_client = logging.Client()
-
-    # # The name of the log to write to
-    # log_name = "my-log"
-    # # Selects the log to write to
-    # logger = logging_client.logger(log_name)
-
-    # # The data to log
-    # text = "Hello, world!"
-    # # Writes the log entry
-    # logger.log_text(text)
-
-
-
+    ####
+    #######
+    ##########
+    ####
+    #######
+    ##########
+    # CONFIG
+    ####
+    #######
+    ##########
+    ####
+    #######
+    ##########
     request_args = request.args
-    print("1-----------------------------------")
-    print(str(request))
-    print("2-----------------------------------")
-    print(str(request_args))
-    print("3-----------------------------------")
+    HOME_URL = request_args['web_url']
+    m = re.search('https?://([A-Za-z_0-9.-]+).*', HOME_URL)
+    APP_NAME=m.group(1).replace('.', '-')
+    
+    TEMPLATE_DICT={
+        'home_sites_url' : '<<<home.site.url>>>',
+    }
+    
+    if sys.platform.startswith('win32'):
+        NEW_APP_PATH='new-app'    
+        os.system('set GOOGLE_APPLICATION_CREDENTIALS=\"WebApps-8cc1b58e690f.json\"')
+    else:#sys.platform.startswith('linux'):
+        NEW_APP_PATH=r'/tmp/new-app'
+        os.system('export GOOGLE_APPLICATION_CREDENTIALS=\"WebApps-8cc1b58e690f.json\"')
 
+
+
+
+    print('CONFIGURATION:')
+    print('HOME_URL : ' + HOME_URL)
+    print('APP_NAME : ' + APP_NAME)
+    print('TEMPLATE_DICT : ' + str(TEMPLATE_DICT))
+    print('NEW_APP_PATH : ' + str(NEW_APP_PATH))
 
     done_msg='{"msg":"App Runs Successfuly", "args":"'+str(request_args)+'"}'
     faile_msg='App Build&Deploy Failed'
     headers={}
 
+
+    ####
+    #######
+    ##########
+    ####
+    #######
+    ##########
+    # RUN THE LOGIC
+    ####
+    #######
+    ##########
+    ####
+    #######
+    ##########
     try:
+        
         # request_json = request.get_json(silent=True)
         # request_args = request.args
         # clean old runs history
@@ -106,7 +135,7 @@ def main_http(request):
         return (faile_msg + ', due to: ' + str(err), 404, headers)
 
 
-if __name__ == '__main__':
-    request_fake_params = "{\"args\": {\"web_url\": \""+HOME_URL+"\"}}"
-    request_fake_obj = json.loads(request_fake_params, object_hook=lambda d: SimpleNamespace(**d))
-    main_http(request_fake_obj);
+# if __name__ == '__main__':
+#     request_fake_params = "{\"args\": {\"web_url\": \""+HOME_URL+"\"}}"
+#     request_fake_obj = json.loads(request_fake_params, object_hook=lambda d: SimpleNamespace(**d))
+#     main_http(request_fake_obj);
